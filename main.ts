@@ -26,3 +26,19 @@ let dragon = sprites.create(img`
     . . . . . . . . . . . . . . . .
     . . . . . . . . . . . . . . . .
 `)
+//  Player controls
+dragon.x = 20
+dragon.ay = 150
+controller.A.onEvent(ControllerButtonEvent.Pressed, function on_a_pressed() {
+    dragon.vy = -60
+})
+//  Generate Columns
+function on_update_interval() {
+    let gate_img = image.create(10, scene.screenHeight())
+    gate_img.fill(7)
+    gate_img.fillRect(0, randint(10, 40), 10, randint(50, 80), 0)
+    let gate = sprites.createProjectileFromSide(gate_img, -50, 0)
+    gate.setPosition(scene.screenWidth(), scene.screenHeight() / 2)
+}
+
+//  point increase
