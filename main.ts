@@ -42,3 +42,23 @@ function on_update_interval() {
 }
 
 //  point increase
+//  Game Loop
+game.onUpdate(function on_update() {
+    if (dragon.y > scene.screenHeight()) {
+        death()
+    } else if (dragon.y < 0) {
+        dragon.y = 0
+    }
+    
+})
+//  player death
+function death() {
+    info.changeLifeBy(-1)
+    if (info.life() != 0) {
+        dragon.vy = 0
+        dragon.y = scene.screenHeight() / 2
+        game.splash("Press A to Start")
+    }
+    
+}
+

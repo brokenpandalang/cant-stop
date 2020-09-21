@@ -46,7 +46,24 @@ def on_update_interval():
 def on_on_destroyed():
     info.change_score_by(1)
     gate.on_destroyed(on_on_destroyed)
+    
+    def on_overlap(sprite, otherSprite):
+        death()
+    sprites.on_overlap(SpriteKind.player, SpriteKind.projectile, on_overlap)
 
+# Game Loop
+def on_update():
+    if dragon.y > scene.screen_height():
+        death()
+    elif dragon.y < 0:
+        dragon.y = 0
+game.on_update(on_update)
 
 
 # player death
+def death():
+    info.change_life_by(-1)
+    if info.life() != 0:
+        dragon.vy = 0
+        dragon.y = scene.screen_height()/2
+        game.splash("Press A to Start")
